@@ -2,9 +2,9 @@ import torch.nn as nn
 
 
 class Discriminator(nn.Module):
-    def __init__(self, ngpu, n_channels, features_d):
+    def __init__(self, n_channels, features_d):
         super(Discriminator, self).__init__()
-        self.ngpu = ngpu
+        # self.ngpu = ngpu
         self.main = nn.Sequential(
             # input is (nc) x 64 x 64
             nn.Conv2d(n_channels, features_d, 4, 2, 1, bias=False),
@@ -31,9 +31,9 @@ class Discriminator(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, ngpu, latent_size, n_channels, features_g):
+    def __init__(self, latent_size, n_channels, features_g):
         super(Generator, self).__init__()
-        self.ngpu = ngpu
+        # self.ngpu = ngpu
         self.main = nn.Sequential(
             # input is Z, going into a convolution
             nn.ConvTranspose2d(latent_size, features_g * \
