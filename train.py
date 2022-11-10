@@ -39,12 +39,13 @@ dataloader = celeba_loader(params)
 
 # Initialize the generator
 gen_model = Generator(
-    latent_size=params['nz'], n_channels=params['nc'], features_g=params['ngf'])
+    latent_size=params['nz'], n_channels=params['nc'], features_g=params['ngf']).to(device)
 gen_model.apply(weights_init)
 print(gen_model)
 
 # Initialize the dsicriminator
-disc_model = Discriminator(n_channels=params['nc'], features_d=params['ndf'])
+disc_model = Discriminator(
+    n_channels=params['nc'], features_d=params['ndf']).to(device)
 disc_model.apply(weights_init)
 print(disc_model)
 
@@ -156,7 +157,7 @@ for epoch in range(params['nepochs']):
             'optimizerG': optimizerG.state_dict(),
             'optimizerD': optimizerD.state_dict(),
             'params': params
-        }, 'model/model_epoch_{}.pth'.format(epoch))
+        }, 'saved_models/model_epoch_{}.pth'.format(epoch))
 
 # Save the final trained model.
 torch.save({
