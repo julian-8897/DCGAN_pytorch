@@ -9,7 +9,7 @@ from IPython.display import HTML
 import random
 
 from model import Discriminator, Generator, weights_init
-from data_loader import celeba_loader
+from data_loader import celeba_loader, afhq_loader
 
 seed = 999
 random.seed(seed)
@@ -35,7 +35,8 @@ params = {
 
 
 device = torch.device("cuda:0" if (torch.cuda.is_available()) else "cpu")
-dataloader = celeba_loader(params)
+# dataloader = celeba_loader(params)
+dataloader = afhq_loader(params)
 
 # Initialize the generator
 gen_model = Generator(
