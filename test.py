@@ -42,7 +42,7 @@ with torch.no_grad():
 # Display the generated image.
 plt.axis("off")
 plt.title("Generated Images")
-plt.imshow(np.transpose(vutils.make_grid(
-    generated_img, padding=2, normalize=True), (1, 2, 0)))
-
+# plt.imshow(np.transpose(vutils.make_grid(
+#     generated_img, padding=2, normalize=True), (1, 2, 0)))
+vutils.save_image(generated_img.data, 'generated_images.png', normalize=True)
 plt.show()
