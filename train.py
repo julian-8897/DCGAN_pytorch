@@ -187,6 +187,6 @@ ims = [[plt.imshow(np.transpose(i, (1, 2, 0)), animated=True)]
        for i in img_list]
 ani = animation.ArtistAnimation(
     fig, ims, interval=1000, repeat_delay=1000, blit=True)
-writergif = animation.PillowWriter(fps=30)
+writergif = animation.PillowWriter(fps=5)
 ani.save('generated.gif', writer=writergif)
 # HTML(ani.to_jshtml())
