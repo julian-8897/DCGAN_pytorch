@@ -59,7 +59,7 @@ python test.py
 | ------------------| 
 | ![][2]            | 
 
-| Generator's Output after each epoch |
+| Generator's Output after each training epoch |
 | ------------------------------------| 
 | ![][3]                              |
 
