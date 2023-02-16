@@ -33,7 +33,7 @@ $ pip install -r requirements.txt
 To train the model, edit the hyperparameters in 'train.py', and run the following command:
 
 ```
-python train.py 
+python train.py
 ```
 
 ### Model Evaluation
@@ -41,7 +41,7 @@ python train.py
 To evaluate the model and generate samples, run the following command:
 
 ```
-python test.py 
+python test.py
 ```
 
 <h2 align="left">
@@ -50,19 +50,23 @@ python test.py
 
 #### learning rate = 0.0002, batch size = 128, trained for 10 epochs with random seed
 
-| Generated Samples | 
-| ------------------| 
-| ![][1]            | 
+| Generated Samples |
+| ----------------- |
+| ![][1]            |
 
-
-| Loss Plots        |
-| ------------------| 
-| ![][2]            | 
+| Loss Plots |
+| ---------- |
+| ![][2]     |
 
 | Generator's Output after each training epoch |
-| ------------------------------------| 
-| ![][3]                              |
+| -------------------------------------------- |
+| ![][3]                                       |
+
+| Linear Interpolation Between Two Images |
+| --------------------------------------- |
+| ![][4]                                  |
 
 [1]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/dcgan_generated_epoch_10.png
 [2]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/dcgan_losses_epoch_10.png
 [3]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/generated_epoch_10.gif
+[4]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/linear_interpolation.png
