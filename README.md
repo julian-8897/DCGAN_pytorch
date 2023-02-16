@@ -54,6 +54,10 @@ python test.py
 | ----------------- |
 | ![][1]            |
 
+| Linear Interpolation Between Two Images |
+| --------------------------------------- |
+| ![][4]                                  |
+
 | Loss Plots |
 | ---------- |
 | ![][2]     |
@@ -61,10 +65,6 @@ python test.py
 | Generator's Output after each training epoch |
 | -------------------------------------------- |
 | ![][3]                                       |
-
-| Linear Interpolation Between Two Images |
-| --------------------------------------- |
-| ![][4]                                  |
 
 [1]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/dcgan_generated_epoch_10.png
 [2]: https://github.com/julian-8897/DCGAN_pytorch/blob/main/results/dcgan_losses_epoch_10.png
