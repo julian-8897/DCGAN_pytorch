@@ -131,4 +131,4 @@ dmypy.json
 #local 
 data/
 data_afhq/
-saved_models/
+#saved_models/
