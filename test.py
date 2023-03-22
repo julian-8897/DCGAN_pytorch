@@ -6,9 +6,28 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import random
 from model import Generator
+# spherical linear interpolation (slerp)
 
 
-def interpolate(z_1, z_2, n_steps=10):
+def slerp(val, low, high):
+    low_norm = low/torch.norm(low, dim=1, keepdim=True)
+    high_norm = high/torch.norm(high, dim=1, keepdim=True)
+    omega = torch.acos((low_norm*high_norm).sum(1))
+    so = torch.sin(omega)
+    if so.all() == 0:
+        return (1.0 - val) * low + val * high  # L'Hopital's rule / LERP
+
+    res = (torch.sin((1.0-val)*omega)/so).unsqueeze(1) * \
+        low + (torch.sin(val*omega)/so).unsqueeze(1) * high
+    return res
+
+
+def interpolate_spherical(z_1, z_2, n_steps=5):
+    z = torch.stack([slerp(t, z_1, z_2) for t in np.linspace(0, 1, n_steps)])
+    return z
+
+
+def interpolate(z_1, z_2, n_steps=5):
     """Performs Linear Interpolation between Two Latent Vectors
 
     Args:
@@ -48,15 +67,27 @@ print(netG)
 print(args.num_output)
 # Get latent vector Z from unit normal distribution.
 noise = torch.randn(int(args.num_output), params['nz'], 1, 1, device=device)
+# print(noise[0].shape)
+
+# slerp_test = slerp(0, noise[0], noise[1])
+# print(slerp_test)
 # Interpolating between two latent vectors
-interpolate_pts = interpolate(noise[0], noise[1])
+interpolate_linear = interpolate(noise[0], noise[1])
+interpolate_sph = interpolate_spherical(noise[0], noise[1])
+
+# print(interpolate_pts.shape)
 
 with torch.no_grad():
     generated_img = netG(noise).detach().cpu()
-    interpolate_img = netG(interpolate_pts).detach().cpu()
+    interpolate_1 = netG(interpolate_linear).detach().cpu()
+    interpolate_2 = netG(interpolate_sph).detach().cpu()
 
 vutils.save_image(generated_img.data,
                   'results_local/generated_images.png', normalize=True)
-grid_img = vutils.make_grid(interpolate_img, nrow=10)
+grid_img_1 = vutils.make_grid(interpolate_1, nrow=20)
 vutils.save_image(
-    grid_img.data, 'results_local/interpolated_images.png', normalize=True)
+    grid_img_1.data, 'results_local/linear_interpolation.png', normalize=True)
+
+grid_img_2 = vutils.make_grid(interpolate_2, nrow=20)
+vutils.save_image(
+    grid_img_2.data, 'results_local/spherical_interpolation.png', normalize=True)
